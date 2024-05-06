@@ -48,3 +48,17 @@ function playRound(humanChoice, computerChoice) {
     return `Human Choice: ${humanChoice}, Computer Choice: ${computerChoice}
             Human Score: ${humanScore}, Computer Score: ${computerScore}`;
 }
+
+// Function defining the game loop
+function playGame(getHumanChoice, getComputerChoice) {
+    const numRounds = 5;
+    let currentRound = 0;
+    while(currentRound < numRounds) {
+        console.log(`Round ${currentRound + 1}`);
+        console.log(playRound(getHumanChoice(), getComputerChoice()));
+        currentRound++;
+    }
+
+}
+
+playGame(getHumanChoice, getComputerChoice);
