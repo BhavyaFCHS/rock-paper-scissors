@@ -3,10 +3,22 @@ function getComputerChoice() {
     let num = Math.floor(Math.random() * 3);
     switch(num) {
         case 0:
-            return "Rock";
+            return "rock";
         case 1:
-            return "Paper";
+            return "paper";
         case 2:
-            return "Scissors";
+            return "scissors";
     }
 }
+
+function getHumanChoice() {
+    let validChoice = false;
+    let choice;
+    while(!validChoice) {
+        choice = prompt("Enter your choice, ('rock', 'paper', or 'scissors'): ").toLowerCase();
+        validChoice = (choice === "rock" || choice === 'paper' || choice === 'scissors') ? true : console.log("invalid choice!\nChoose Again!");
+    }
+    return choice;
+}
+
+console.log(getHumanChoice());
