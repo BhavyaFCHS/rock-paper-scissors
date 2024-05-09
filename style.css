@@ -1,10 +1,14 @@
-* {
-    border: 1px solid red;
+body {
+    font-family: 'Roboto', sans-serif;
 }
 
-#begin {
+.game {
+    border-top: 2px solid black;
+}
+
+div.hvr{
     width: fit-content;
-    margin: auto;
+    margin: 18px auto;
     padding: 12px;
 }
 
@@ -17,5 +21,21 @@ div.buttons {
     flex: 1;
     text-align: center;
     padding: 8px;
-    margin: 12px;
+    margin: 18px;
+}
+
+.buttons div, div.hvr {
+    color: rgb(3, 38, 134);
+    border: 1px groove rgb(3, 38, 134);
+    border-radius: 15px;
+}
+
+.hvr {
+    transition: transform 0.3s, background-color 0.3s, color 0.3s;
+}
+.hvr:hover {
+    background-color: rgb(3, 38, 134);
+    color:whitesmoke;
+    font-weight: bold;
+    transform: translateY(-5px);
 }
