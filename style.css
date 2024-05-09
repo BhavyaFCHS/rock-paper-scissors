@@ -1,0 +1,21 @@
+* {
+    border: 1px solid red;
+}
+
+#begin {
+    width: fit-content;
+    margin: auto;
+    padding: 12px;
+}
+
+div.buttons {
+    display: flex;
+    gap: 8px;
+}
+
+.buttons div {
+    flex: 1;
+    text-align: center;
+    padding: 8px;
+    margin: 12px;
+}

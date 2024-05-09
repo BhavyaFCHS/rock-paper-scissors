@@ -4,8 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <h1>Rock Paper Scissors Game</h1>
+    <div class="intro">
+        <p>Everyone knows the classic game rock paper scissors:</p>
+        <ul>
+            <li>Rock beats Scissors</li>
+            <li>Scissors beats Paper</li>
+            <li>Paper beats Rock</li>
+        </ul>
+        <p>Once you start the round: click one of the following buttons
+            to make your choice. The computer's choice is <em>randomly generated.</em>
+        </p>
+    </div>
+
+    <div class="game">
+        <div id="begin">Begin Round</div>
+        <div class="buttons">
+            <div id="rock">rock</div>
+            <div id="paper">paper</div>
+            <div id="scissors">scissors</div>
+        </div>
+
+        <div class="output"></div>
+        <div class="winner"></div>
+
+    </div>
 
     <script src="script.js"></script>
     
