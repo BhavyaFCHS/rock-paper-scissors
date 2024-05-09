@@ -57,6 +57,8 @@ function playGame(getHumanChoice, getComputerChoice) {
 
 }
 
+const game = document.querySelector("body");
+
 const rock = document.createElement("button");
 const paper = document.createElement("button");
 const scissors = document.createElement("button");
@@ -71,9 +73,18 @@ scissors.setAttribute("id", "scissors")
 
 const output = document.createElement("div");
 
-document.querySelector("body").append(rock, paper, scissors, output);
+game.append(rock, paper, scissors, output);
 
-document.querySelector("body").addEventListener("click", e => {
+game.addEventListener("click", e => {
+    if(humanScore === 5 || computerScore === 5) {
+        if(humanScore > computerScore) {
+            output.textContent = "Human Won";
+            return;
+        } else {
+            output.textContent = "Computer Won";
+            return;
+        }
+    }
     const target = e.target;
     let gameOutcome = "";
     switch(target.id) {
