@@ -1,4 +1,3 @@
-// Randomly generates computers choice
 function getComputerChoice() {
     // generate a random number, 0, 1, or 2
     let num = Math.floor(Math.random() * 3);
@@ -12,7 +11,6 @@ function getComputerChoice() {
     }
 }
 
-// Asks user to input choice -- Does not return until a valid choice is given
 function getHumanChoice() {
     let validChoice = false;
     let choice;
@@ -43,9 +41,7 @@ function playRound(humanChoice, computerChoice) {
         // paper beats rock
         (computerChoice === "rock") ? humanScore++ : computerScore++;
     }
-    // if both choices are same, the scores are unchanged
-    // Output scores after the round
-    return `Human Choice: ${humanChoice}, Computer Choice: ${computerChoice}
+    return `Human Choice: ${humanChoice}, Computer Choice: ${computerChoice} |
             Human Score: ${humanScore}, Computer Score: ${computerScore}`;
 }
 
@@ -61,4 +57,36 @@ function playGame(getHumanChoice, getComputerChoice) {
 
 }
 
-playGame(getHumanChoice, getComputerChoice);
+const rock = document.createElement("button");
+const paper = document.createElement("button");
+const scissors = document.createElement("button");
+
+rock.textContent = "rock";
+paper.textContent = "paper";
+scissors.textContent = "scissors";
+
+rock.setAttribute("id", "rock");
+paper.setAttribute("id", "paper");
+scissors.setAttribute("id", "scissors")
+
+const output = document.createElement("div");
+
+document.querySelector("body").append(rock, paper, scissors, output);
+
+document.querySelector("body").addEventListener("click", e => {
+    const target = e.target;
+    let gameOutcome = "";
+    switch(target.id) {
+        case "rock":
+            gameOutcome = playRound("rock", getComputerChoice());
+            break;
+        case "paper":
+            gameOutcome = playRound("paper", getComputerChoice());
+            break;
+        case "scissors":
+            gameOutcome = playRound("scissors", getComputerChoice());
+            break;
+    }
+    output.textContent = gameOutcome;
+});
+
