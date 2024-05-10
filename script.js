@@ -23,10 +23,6 @@ function getHumanChoice() {
     return choice;
 }
 
-// Declaring variables to keep track of the game score
-let humanScore = 0;
-let computerScore = 0;
-
 function playRound(humanChoice, computerChoice) {
     if (humanChoice === computerChoice) {
         return `Tie!\nHuman Score: ${humanScore}, Computer Score: ${computerScore}`;
@@ -41,63 +37,107 @@ function playRound(humanChoice, computerChoice) {
         // paper beats rock
         (computerChoice === "rock") ? humanScore++ : computerScore++;
     }
-    return `Human Choice: ${humanChoice}, Computer Choice: ${computerChoice} |
-            Human Score: ${humanScore}, Computer Score: ${computerScore}`;
+    return `Human Score: ${humanScore}, Computer Score: ${computerScore}`;
 }
 
-// Function defining the game loop
-function playGame(getHumanChoice, getComputerChoice) {
-    const numRounds = 5;
-    let currentRound = 0;
-    while(currentRound < numRounds) {
-        console.log(`Round ${currentRound + 1}`);
-        console.log(playRound(getHumanChoice(), getComputerChoice()));
-        currentRound++;
+function showWinner() {
+    let display;
+    if(humanScore === computerScore) {
+        display = "Game Over: TIE";
+    } else if(humanScore > computerScore) {
+        display = "Winner: HUMAN";
+    } else {
+        display = "Winner: COMPUTER";
     }
-
+    winner.textContent = display;
+    winner.style.backgroundColor = "rgb(3, 38, 134)";
+    winner.style.color = "whitesmoke";
+    winner.style.fontWeight = "bold";
+    winner.style.fontSize = "24px";
+    winner.style.padding = "12px";
+    winner.style.borderRadius = "15px";
 }
 
-const game = document.querySelector("body");
+// Declaring variables to keep track of the game score
+let humanScore = 0;
+let computerScore = 0;
+let humanChoice = "";
+const possibleChoices = ["rock", "paper", "scissors"];
+const NUM_ROUNDS = 5;
+let currentRound = 1;
 
-const rock = document.createElement("button");
-const paper = document.createElement("button");
-const scissors = document.createElement("button");
 
-rock.textContent = "rock";
-paper.textContent = "paper";
-scissors.textContent = "scissors";
+const begin = document.querySelector("#begin");
+const game = document.querySelector(".game");
+const choice = document.querySelector(".choice");
+const output = document.querySelector(".output");
+const winner = document.querySelector(".winner");
+const playAgain = document.querySelector("#play-again");
+const gameOverMessage = document.createElement("div");
+game.insertBefore(gameOverMessage, game.firstChild);
 
-rock.setAttribute("id", "rock");
-paper.setAttribute("id", "paper");
-scissors.setAttribute("id", "scissors")
+playAgain.addEventListener("click", e => {
+    currentRound = 1;
+    humanScore = 0;
+    computerScore = 0;
 
-const output = document.createElement("div");
+    playAgain.classList.remove("hvr");
+    playAgain.classList.remove("pastyles");    
+    playAgain.textContent = "";
 
-game.append(rock, paper, scissors, output);
+    winner.textContent = "";
+})
 
 game.addEventListener("click", e => {
-    if(humanScore === 5 || computerScore === 5) {
-        if(humanScore > computerScore) {
-            output.textContent = "Human Won";
-            return;
-        } else {
-            output.textContent = "Computer Won";
-            return;
-        }
-    }
-    const target = e.target;
-    let gameOutcome = "";
-    switch(target.id) {
-        case "rock":
-            gameOutcome = playRound("rock", getComputerChoice());
-            break;
-        case "paper":
-            gameOutcome = playRound("paper", getComputerChoice());
-            break;
-        case "scissors":
-            gameOutcome = playRound("scissors", getComputerChoice());
-            break;
-    }
-    output.textContent = gameOutcome;
+    humanChoice = e.target.id;
+    choice.textContent = humanChoice;
+    choice.style.backgroundColor = "rgb(3, 38, 134)";
+    choice.style.color = "whitesmoke";
+    choice.style.fontWeight = "bold";
+    choice.style.fontSize = "24px";
+    choice.style.padding = "12px";
+    choice.style.borderRadius = "15px";
 });
+
+begin.addEventListener("click", function(e) {
+    if(possibleChoices.includes(humanChoice) && currentRound <= NUM_ROUNDS) {
+        gameOverMessage.textContent = "";
+
+        let computerChoice = getComputerChoice();
+        outcome = playRound(humanChoice, computerChoice);
+
+        const round = document.createElement("div");
+        round.textContent = `Scores: ${outcome}`;
+        round.style.marginLeft = "12px";
+        round.style.padding = "8px";
+        round.style.borderBottom = "1px solid black";
+
+        const compChoice = document.createElement("div");
+        compChoice.textContent = `Computer Choice: ${computerChoice}`;
+        compChoice.style.marginLeft = "12px";
+        compChoice.style.padding = "8px";
+        compChoice.style.borderTop = "1px solid black";
+
+        const outputMessage = document.createElement("div");
+        const numRound = document.createElement("div");
+        numRound.textContent = `Current Round: ${currentRound}`;
+        numRound.style.fontSize = "16px";
+
+        outputMessage.append(numRound, compChoice, round);
+        output.insertBefore(outputMessage, output.firstChild);
+        humanChoice = "";
+
+        if(currentRound === NUM_ROUNDS) showWinner();
+        currentRound++;
+    } else if(!possibleChoices.includes(humanChoice)){
+        output.textContent = "NOT A VALID SELECTION";
+    } else if(currentRound > NUM_ROUNDS){
+        gameOverMessage.textContent = "GAME OVER! Press Play Again Button!";
+        gameOverMessage.style.fontSize = "18px";
+        playAgain.textContent = "Play Again!";
+        playAgain.classList.add("hvr");
+        playAgain.classList.add("pastyles");
+    }
+})
+
 

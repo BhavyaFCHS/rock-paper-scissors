@@ -6,6 +6,11 @@ body {
     border-top: 2px solid black;
 }
 
+.pastyles {
+    margin: 24px;
+    font-size: 24px;
+}
+
 div.hvr{
     width: fit-content;
     margin: 18px auto;
